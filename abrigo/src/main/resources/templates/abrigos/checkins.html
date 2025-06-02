@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="#{checkin.lista}">Check-ins Realizados</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f4f6f8;
+            font-family: 'Segoe UI', sans-serif;
+        }
+        .sidebar {
+            width: 100px;
+            height: 100vh;
+            position: fixed;
+            background-color: #1A2C46;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 1.5rem 0;
+        }
+        .sidebar img {
+            width: 100px;
+            margin-bottom: 3rem;
+        }
+        .sidebar a {
+            color: white;
+            margin: 1rem 0;
+            font-size: 1.8rem;
+            text-decoration: none;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .sidebar a small {
+            font-size: 0.75rem;
+        }
+        .content {
+            margin-left: 100px;
+            padding: 2rem;
+        }
+        .card {
+            border-radius: 16px;
+            background-color: white;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            padding: 1rem;
+        }
+        h2 {
+            color: #1A2C46;
+        }
+        .table th, .table td {
+            text-align: center;
+            vertical-align: middle;
+        }
+    </style>
+</head>
+<body>
+
+<div class="sidebar">
+    <img src="/img/logo.png" alt="Abrigo+">
+
+    <a href="/abrigos" class="text-white text-center">
+        <div style="font-size: 2rem;">🏠</div>
+        <small>Início</small>
+    </a>
+
+    <a href="/abrigos/novo" class="text-white text-center">
+        <div style="font-size: 2rem;">➕</div>
+        <small>Novo Abrigo</small>
+    </a>
+
+    <a href="/abrigos/checkin" class="text-white text-center">
+        <div style="font-size: 2rem;">🧾</div>
+        <small>Novo Check-in</small>
+    </a>
+
+    <a href="/checkins" class="text-white text-center">
+        <div style="font-size: 2rem;">📋</div>
+        <small>Check-ins</small>
+    </a>
+</div>
+
+<div class="content">
+    <h2 class="mb-4" th:text="#{checkin.lista}">Check-ins Realizados</h2>
+
+    <div class="card">
+        <div class="table-responsive">
+            <table class="table table-hover">
+                <thead class="table-light">
+                <tr>
+                    <th th:text="#{coluna.id}">ID</th>
+                    <th th:text="#{coluna.nome}">Nome</th>
+                    <th th:text="#{form.label.documento}">Documento</th>
+                    <th th:text="#{form.label.abrigo}">Abrigo</th>
+                    <th th:text="#{coluna.data}">Data</th>
+                    <th th:text="#{coluna.acoes}">Ações</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="checkIn : ${checkins}">
+                    <td th:text="${checkIn.id}">1</td>
+                    <td th:text="${checkIn.nome}">Fulano</td>
+                    <td th:text="${checkIn.documento}">123456</td>
+                    <td th:text="${checkIn.abrigo.nome}">Abrigo Central</td>
+                    <td th:text="${checkIn.dataCheckIn}">2025-05-31</td>
+                    <td>
+                        <a th:href="@{'/checkins/editar/' + ${checkIn.id}}" class="btn btn-sm btn-outline-primary">Editar</a>
+                        <a th:href="@{'/checkins/excluir/' + ${checkIn.id}}" class="btn btn-sm btn-outline-danger">Excluir</a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

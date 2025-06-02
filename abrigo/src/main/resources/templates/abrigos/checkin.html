@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="#{titulo.checkin}">Check-in Abrigado</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f4f6f8;
+            font-family: 'Segoe UI', sans-serif;
+        }
+        .sidebar {
+            width: 100px;
+            height: 100vh;
+            position: fixed;
+            background-color: #1A2C46;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 1.5rem 0;
+        }
+        .sidebar img {
+            width: 100px;
+            margin-bottom: 3rem;
+        }
+        .sidebar a {
+            color: white;
+            margin: 1rem 0;
+            font-size: 1.8rem;
+            text-decoration: none;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .sidebar a small {
+            font-size: 0.75rem;
+        }
+        .content {
+            margin-left: 100px;
+            padding: 2rem;
+        }
+        .form-container {
+            border-radius: 16px;
+            background-color: white;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            padding: 2rem;
+        }
+        h2 {
+            color: #1A2C46;
+        }
+    </style>
+</head>
+<body>
+
+<div class="sidebar">
+    <img src="/img/logo.png" alt="Abrigo+">
+
+    <a href="/abrigos" class="text-white text-center">
+        <div style="font-size: 2rem;">🏠</div>
+        <small>Início</small>
+    </a>
+
+    <a href="/abrigos/novo" class="text-white text-center">
+        <div style="font-size: 2rem;">➕</div>
+        <small>Novo Abrigo</small>
+    </a>
+
+    <a href="/abrigos/checkin" class="text-white text-center">
+        <div style="font-size: 2rem;">🧾</div>
+        <small>Novo Check-in</small>
+    </a>
+
+    <a href="/checkins" class="text-white text-center">
+        <div style="font-size: 2rem;">📋</div>
+        <small>Check-ins</small>
+    </a>
+</div>
+
+<div class="content">
+    <h2 class="mb-4" th:text="#{titulo.checkin}">Check-in Abrigado</h2>
+
+    <form th:action="@{/checkins/salvar}" th:object="${checkIn}" method="post" class="form-container row g-3">
+        <div class="col-md-6">
+            <label class="form-label" th:text="#{form.label.nomeAbrigado}">Nome da Pessoa</label>
+            <input type="text" class="form-control" th:field="*{nome}" required>
+        </div>
+
+        <div class="col-md-6">
+            <label class="form-label" th:text="#{form.label.documento}">Documento</label>
+            <input type="text" class="form-control" th:field="*{documento}" required>
+        </div>
+
+        <div class="col-md-12">
+            <label class="form-label" th:text="#{form.label.abrigo}">Abrigo</label>
+            <select class="form-select" th:field="*{abrigo}" required>
+                <option th:each="abrigo : ${abrigos}" th:value="${abrigo.id}" th:text="${abrigo.nome}">Abrigo</option>
+            </select>
+        </div>
+
+        <div class="col-md-6">
+            <label class="form-label" th:text="#{form.label.dataCheckin}">Data do Check-in</label>
+            <input type="date" class="form-control" th:field="*{dataCheckIn}"
+                   th:value="${#dates.format(#dates.createNow(), 'yyyy-MM-dd')}">
+        </div>
+
+        <div class="col-12 text-end">
+            <button type="submit" class="btn btn-primary" th:text="#{botao.salvar}">Salvar</button>
+            <a th:href="@{/checkins}" class="btn btn-outline-secondary" th:text="#{botao.cancelar}">Cancelar</a>
+        </div>
+    </form>
+</div>
+
+</body>
+</html>

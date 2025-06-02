@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="#{titulo.lista}">Lista de Abrigos</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <style>
+        body {
+            background-color: #f4f6f8;
+            font-family: 'Segoe UI', sans-serif;
+        }
+        .sidebar {
+            width: 100px;
+            height: 100vh;
+            position: fixed;
+            background-color: #1A2C46;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 1.5rem 0;
+        }
+        .sidebar img {
+            width: 100px;
+            margin-bottom: 3rem;
+        }
+        .sidebar a {
+            color: white;
+            margin: 1rem 0;
+            font-size: 1.8rem;
+            text-decoration: none;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .sidebar a small {
+            font-size: 0.75rem;
+        }
+        .content {
+            margin-left: 100px;
+            padding: 2rem;
+        }
+        .card {
+            border: none;
+            border-radius: 16px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+        }
+        .table thead {
+            background-color: #f0f2f5;
+        }
+        .table td, .table th {
+            vertical-align: middle;
+            text-align: center;
+        }
+        .form-switch .form-check-input {
+            width: 2.5em;
+            height: 1.2em;
+        }
+        .badge-recurso {
+            background-color: #dee2e6;
+            color: #333;
+            font-size: 0.75rem;
+            border-radius: 0.5rem;
+            padding: 0.3em 0.6em;
+            margin: 0 0.2em;
+        }
+        h2 {
+            color: #1A2C46;
+        }
+    </style>
+</head>
+<body>
+
+<div class="sidebar">
+    <img src="/img/logo.png" alt="Abrigo+">
+
+    <a href="/abrigos" class="text-white text-center">
+        <div style="font-size: 2rem;">🏠</div>
+        <small>Início</small>
+    </a>
+
+    <a href="/abrigos/novo" class="text-white text-center">
+        <div style="font-size: 2rem;">➕</div>
+        <small>Novo Abrigo</small>
+    </a>
+
+    <a href="/abrigos/checkin" class="text-white text-center">
+        <div style="font-size: 2rem;">🧾</div>
+        <small>Novo Check-in</small>
+    </a>
+
+    <a href="/checkins" class="text-white text-center">
+        <div style="font-size: 2rem;">📋</div>
+        <small>Check-ins</small>
+    </a>
+</div>
+
+<div class="content">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="text-dark" th:text="#{titulo.lista}">Lista de Abrigos</h2>
+        <div class="d-flex gap-2">
+            <a th:href="@{/abrigos/checkin}" class="btn btn-outline-secondary">Check-in</a>
+            <a th:href="@{/abrigos/novo}" class="btn btn-primary" th:text="#{botao.novo}">+ Novo Abrigo</a>
+        </div>
+    </div>
+
+    <!-- Botões de idioma -->
+    <div class="d-flex justify-content-end mb-3">
+        <a href="?lang=pt" class="btn btn-outline-secondary btn-sm me-2">🇧🇷 Português</a>
+        <a href="?lang=en" class="btn btn-outline-secondary btn-sm">🇺🇸 English</a>
+    </div>
+
+    <div class="card p-3">
+        <div class="table-responsive">
+            <table class="table align-middle">
+                <thead>
+                <tr>
+                    <th th:text="#{coluna.id}">ID</th>
+                    <th th:text="#{coluna.nome}">Nome</th>
+                    <th th:text="#{coluna.regiao}">Região</th>
+                    <th th:text="#{coluna.capacidade}">Capacidade</th>
+                    <th th:text="#{coluna.ocupacao}">Ocup.</th>
+                    <th th:text="#{coluna.vagas}">Vagas</th>
+                    <th th:text="#{coluna.temperatura}">Temp.</th>
+                    <th th:text="#{coluna.recursos}">Recursos</th>
+                    <th th:text="#{coluna.responsavel}">Responsável</th>
+                    <th th:text="#{coluna.telefone}">Telefone</th>
+                    <th th:text="#{coluna.status}">Status</th>
+                    <th th:text="#{coluna.acoes}">Ações</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="abrigo : ${abrigos}">
+                    <td th:text="${abrigo.id}">1</td>
+                    <td th:text="${abrigo.nome}">Nome</td>
+                    <td th:text="${abrigo.regiao}">Região</td>
+                    <td th:text="${abrigo.capacidade}">100</td>
+                    <td th:text="${abrigo.ocupacao}">80</td>
+                    <td th:text="${abrigo.capacidade - abrigo.ocupacao}">20</td>
+                    <td th:text="${abrigo.temperatura} + '°C'">25°C</td>
+                    <td>
+                        <span th:each="r : ${#strings.arraySplit(abrigo.recursos, ',')}"
+                              class="badge-recurso" th:text="${r.trim()}">recurso</span>
+                    </td>
+                    <td th:text="${abrigo.responsavel}">Maria</td>
+                    <td th:text="${abrigo.telefone}">(11) 99999-9999</td>
+                    <td>
+                        <div class="form-check form-switch d-flex justify-content-center">
+                            <input class="form-check-input" type="checkbox" th:checked="${abrigo.ativo}" disabled>
+                        </div>
+                    </td>
+                    <td>
+                        <a th:href="@{'/abrigos/editar/' + ${abrigo.id}}" class="btn btn-sm btn-outline-primary">Editar</a>
+                        <a th:href="@{'/abrigos/excluir/' + ${abrigo.id}}" class="btn btn-sm btn-outline-danger">Excluir</a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
