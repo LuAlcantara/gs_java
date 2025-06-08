@@ -17,6 +17,7 @@ public class CheckIn {
     @JoinColumn(name = "abrigo_id")
     private Abrigo abrigo;
 
+    @Column(updatable = false)
     private LocalDate dataCheckIn;
 
     public CheckIn() {
@@ -25,6 +26,10 @@ public class CheckIn {
 
     public Long getId() {
         return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getNome() {

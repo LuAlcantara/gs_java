@@ -1,14 +1,14 @@
 package com.abrigo.controller;
 
 import com.abrigo.model.Abrigo;
-import com.abrigo.repository.AbrigoRepository;
+import com.abrigo.service.AbrigoService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-import jakarta.validation.Valid;
 import java.util.Optional;
 
 @Controller
@@ -16,11 +16,11 @@ import java.util.Optional;
 public class AbrigoController {
 
     @Autowired
-    private AbrigoRepository abrigoRepository;
+    private AbrigoService abrigoService;
 
     @GetMapping
     public String listar(Model model) {
-        model.addAttribute("abrigos", abrigoRepository.findAll());
+        model.addAttribute("abrigos", abrigoService.listarTodos());
         return "abrigos/lista";
     }
 
@@ -35,13 +35,33 @@ public class AbrigoController {
         if (result.hasErrors()) {
             return "abrigos/form";
         }
-        abrigoRepository.save(abrigo);
+
+        if (abrigo.getId() != null) {
+            Optional<Abrigo> existente = abrigoService.buscarPorId(abrigo.getId());
+            if (existente.isPresent()) {
+                Abrigo atual = existente.get();
+                atual.setNome(abrigo.getNome());
+                atual.setEndereco(abrigo.getEndereco());
+                atual.setRegiao(abrigo.getRegiao());
+                atual.setTemperatura(abrigo.getTemperatura());
+                atual.setRecursos(abrigo.getRecursos());
+                atual.setCapacidade(abrigo.getCapacidade());
+                atual.setOcupacao(abrigo.getOcupacao());
+                atual.setAtivo(abrigo.isAtivo());
+                atual.setResponsavel(abrigo.getResponsavel());
+                atual.setTelefone(abrigo.getTelefone());
+                abrigoService.salvar(atual);
+                return "redirect:/abrigos";
+            }
+        }
+
+        abrigoService.salvar(abrigo); // novo cadastro
         return "redirect:/abrigos";
     }
 
     @GetMapping("/editar/{id}")
     public String editar(@PathVariable Long id, Model model) {
-        Optional<Abrigo> abrigo = abrigoRepository.findById(id);
+        Optional<Abrigo> abrigo = abrigoService.buscarPorId(id);
         if (abrigo.isPresent()) {
             model.addAttribute("abrigo", abrigo.get());
             return "abrigos/form";
@@ -53,7 +73,13 @@ public class AbrigoController {
     @GetMapping("/checkin")
     public String checkin(Model model) {
         model.addAttribute("checkIn", new com.abrigo.model.CheckIn());
-        model.addAttribute("abrigos", abrigoRepository.findAll());
+        model.addAttribute("abrigos", abrigoService.listarTodos());
         return "abrigos/checkin";
+    }
+
+    @GetMapping("/excluir/{id}")
+    public String excluir(@PathVariable Long id) {
+        abrigoService.excluir(id);
+        return "redirect:/abrigos";
     }
 }

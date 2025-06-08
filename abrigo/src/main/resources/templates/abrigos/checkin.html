@@ -57,22 +57,22 @@
 
     <a href="/abrigos" class="text-white text-center">
         <div style="font-size: 2rem;">🏠</div>
-        <small>Início</small>
+        <small th:text="#{menu.inicio}">Início</small>
     </a>
 
     <a href="/abrigos/novo" class="text-white text-center">
         <div style="font-size: 2rem;">➕</div>
-        <small>Novo Abrigo</small>
+        <small th:text="#{menu.novoAbrigo}">Novo Abrigo</small>
     </a>
 
     <a href="/abrigos/checkin" class="text-white text-center">
         <div style="font-size: 2rem;">🧾</div>
-        <small>Novo Check-in</small>
+        <small th:text="#{menu.novoCheckin}">Novo Check-in</small>
     </a>
 
     <a href="/checkins" class="text-white text-center">
         <div style="font-size: 2rem;">📋</div>
-        <small>Check-ins</small>
+        <small th:text="#{menu.checkins}">Check-ins</small>
     </a>
 </div>
 
@@ -80,14 +80,16 @@
     <h2 class="mb-4" th:text="#{titulo.checkin}">Check-in Abrigado</h2>
 
     <form th:action="@{/checkins/salvar}" th:object="${checkIn}" method="post" class="form-container row g-3">
+        <input type="hidden" th:field="*{id}" />
+
         <div class="col-md-6">
             <label class="form-label" th:text="#{form.label.nomeAbrigado}">Nome da Pessoa</label>
-            <input type="text" class="form-control" th:field="*{nome}" required>
+            <input type="text" class="form-control" th:field="*{nome}" required />
         </div>
 
         <div class="col-md-6">
             <label class="form-label" th:text="#{form.label.documento}">Documento</label>
-            <input type="text" class="form-control" th:field="*{documento}" required>
+            <input type="text" class="form-control" th:field="*{documento}" required />
         </div>
 
         <div class="col-md-12">
@@ -99,8 +101,7 @@
 
         <div class="col-md-6">
             <label class="form-label" th:text="#{form.label.dataCheckin}">Data do Check-in</label>
-            <input type="date" class="form-control" th:field="*{dataCheckIn}"
-                   th:value="${#dates.format(#dates.createNow(), 'yyyy-MM-dd')}">
+            <input type="date" class="form-control" th:field="*{dataCheckIn}" th:value="${#dates.format(#dates.createNow(), 'yyyy-MM-dd')}" />
         </div>
 
         <div class="col-12 text-end">

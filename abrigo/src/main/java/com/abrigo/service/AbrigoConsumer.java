@@ -10,6 +10,5 @@ public class AbrigoConsumer {
     @RabbitListener(queues = RabbitMQConfig.NOME_FILA)
     public void receberMensagem(String mensagem) {
         System.out.println("[RabbitMQ] Recebido: " + mensagem);
-        // Aqui você pode futuramente salvar logs, alertar, etc.
     }
 }

@@ -42,10 +42,18 @@ public class CheckInController {
 
     @PostMapping("/salvar")
     public String salvar(@ModelAttribute("checkIn") CheckIn checkIn) {
-        Long abrigoId = checkIn.getAbrigo().getId();
-        Abrigo abrigo = abrigoRepository.findById(abrigoId).orElseThrow();
-        checkIn.setAbrigo(abrigo);
+        if (checkIn.getId() != null) {
+            CheckIn existente = checkInRepository.findById(checkIn.getId()).orElse(null);
+            if (existente != null) {
+                existente.setNome(checkIn.getNome());
+                existente.setDocumento(checkIn.getDocumento());
+                existente.setAbrigo(abrigoRepository.findById(checkIn.getAbrigo().getId()).orElse(null));
+                checkInRepository.save(existente);
+                return "redirect:/checkins";
+            }
+        }
 
+        checkIn.setAbrigo(abrigoRepository.findById(checkIn.getAbrigo().getId()).orElse(null));
         checkInRepository.save(checkIn);
         return "redirect:/checkins";
     }

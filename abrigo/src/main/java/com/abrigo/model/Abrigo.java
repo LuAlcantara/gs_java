@@ -20,37 +20,93 @@ public class Abrigo {
     private String responsavel;
     private String telefone;
 
-    public Long getId() { return id; }
+    public Long getId() {
+        return id;
+    }
 
-    public String getNome() { return nome; }
-    public void setNome(String nome) { this.nome = nome; }
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-    public String getEndereco() { return endereco; }
-    public void setEndereco(String endereco) { this.endereco = endereco; }
+    public String getNome() {
+        return nome;
+    }
 
-    public String getRegiao() { return regiao; }
-    public void setRegiao(String regiao) { this.regiao = regiao; }
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
 
-    public int getTemperatura() { return temperatura; }
-    public void setTemperatura(int temperatura) { this.temperatura = temperatura; }
+    public String getEndereco() {
+        return endereco;
+    }
 
-    public String getRecursos() { return recursos; }
-    public void setRecursos(String recursos) { this.recursos = recursos; }
+    public void setEndereco(String endereco) {
+        this.endereco = endereco;
+    }
 
-    public int getCapacidade() { return capacidade; }
-    public void setCapacidade(int capacidade) { this.capacidade = capacidade; }
+    public String getRegiao() {
+        return regiao;
+    }
 
-    public int getOcupacao() { return ocupacao; }
-    public void setOcupacao(int ocupacao) { this.ocupacao = ocupacao; }
+    public void setRegiao(String regiao) {
+        this.regiao = regiao;
+    }
 
-    public boolean isAtivo() { return ativo; }
-    public void setAtivo(boolean ativo) { this.ativo = ativo; }
+    public int getTemperatura() {
+        return temperatura;
+    }
 
-    public String getResponsavel() { return responsavel; }
-    public void setResponsavel(String responsavel) { this.responsavel = responsavel; }
+    public void setTemperatura(int temperatura) {
+        this.temperatura = temperatura;
+    }
 
-    public String getTelefone() { return telefone; }
-    public void setTelefone(String telefone) { this.telefone = telefone; }
+    public String getRecursos() {
+        return recursos;
+    }
+
+    public void setRecursos(String recursos) {
+        this.recursos = recursos;
+    }
+
+    public int getCapacidade() {
+        return capacidade;
+    }
+
+    public void setCapacidade(int capacidade) {
+        this.capacidade = capacidade;
+    }
+
+    public int getOcupacao() {
+        return ocupacao;
+    }
+
+    public void setOcupacao(int ocupacao) {
+        this.ocupacao = ocupacao;
+    }
+
+    public boolean isAtivo() {
+        return ativo;
+    }
+
+    public void setAtivo(boolean ativo) {
+        this.ativo = ativo;
+    }
+
+    public String getResponsavel() {
+        return responsavel;
+    }
+
+    public void setResponsavel(String responsavel) {
+        this.responsavel = responsavel;
+    }
+
+    public String getTelefone() {
+        return telefone;
+    }
+
+    public void setTelefone(String telefone) {
+        this.telefone = telefone;
+    }
 
     @Override
     public String toString() {

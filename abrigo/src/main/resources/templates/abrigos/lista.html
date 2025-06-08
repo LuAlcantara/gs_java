@@ -76,22 +76,22 @@
 
     <a href="/abrigos" class="text-white text-center">
         <div style="font-size: 2rem;">🏠</div>
-        <small>Início</small>
+        <small th:text="#{menu.inicio}">Início</small>
     </a>
 
     <a href="/abrigos/novo" class="text-white text-center">
         <div style="font-size: 2rem;">➕</div>
-        <small>Novo Abrigo</small>
+        <small th:text="#{menu.novoAbrigo}">Novo Abrigo</small>
     </a>
 
     <a href="/abrigos/checkin" class="text-white text-center">
         <div style="font-size: 2rem;">🧾</div>
-        <small>Novo Check-in</small>
+        <small th:text="#{menu.novoCheckin}">Novo Check-in</small>
     </a>
 
     <a href="/checkins" class="text-white text-center">
         <div style="font-size: 2rem;">📋</div>
-        <small>Check-ins</small>
+        <small th:text="#{menu.checkins}">Check-ins</small>
     </a>
 </div>
 
@@ -99,7 +99,7 @@
     <div class="d-flex justify-content-between align-items-center mb-4">
         <h2 class="text-dark" th:text="#{titulo.lista}">Lista de Abrigos</h2>
         <div class="d-flex gap-2">
-            <a th:href="@{/abrigos/checkin}" class="btn btn-outline-secondary">Check-in</a>
+            <a th:href="@{/abrigos/checkin}" class="btn btn-outline-secondary" th:text="#{menu.novoCheckin}">Check-in</a>
             <a th:href="@{/abrigos/novo}" class="btn btn-primary" th:text="#{botao.novo}">+ Novo Abrigo</a>
         </div>
     </div>
@@ -150,8 +150,8 @@
                         </div>
                     </td>
                     <td>
-                        <a th:href="@{'/abrigos/editar/' + ${abrigo.id}}" class="btn btn-sm btn-outline-primary">Editar</a>
-                        <a th:href="@{'/abrigos/excluir/' + ${abrigo.id}}" class="btn btn-sm btn-outline-danger">Excluir</a>
+                        <a th:href="@{'/abrigos/editar/' + ${abrigo.id}}" class="btn btn-sm btn-outline-primary" th:text="#{acao.editar}">Editar</a>
+                        <a th:href="@{'/abrigos/excluir/' + ${abrigo.id}}" class="btn btn-sm btn-outline-danger" th:text="#{acao.excluir}">Excluir</a>
                     </td>
                 </tr>
                 </tbody>
