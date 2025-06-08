@@ -100,7 +100,7 @@ A aplicação estará disponível com autenticação via Google (OAuth 2.0).
 
 - 🔗 Repositório GitHub: [https://github.com/LuAlcantara/gs_java](https://github.com/LuAlcantara/gs_java)
 - ☁️ Deploy na Azure: https://abrigo-95111.azurewebsites.net
-- 🎥 Vídeo Demonstração: [link aqui]
+- 🎥 Vídeo Demonstração: [https://youtu.be/qGMeEi7hpcM](https://youtu.be/qGMeEi7hpcM](https://youtu.be/qGMeEi7hpcM)
 - 🎬 Pitch do Projeto: [link aqui]
 
 ---
