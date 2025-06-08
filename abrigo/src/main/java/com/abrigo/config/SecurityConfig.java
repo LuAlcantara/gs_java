@@ -13,13 +13,15 @@ public class SecurityConfig {
         http
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/css/**", "/img/**", "/h2-console/**").permitAll()
-                        .requestMatchers("/").permitAll()  // opcional, se tiver home
+                        .requestMatchers("/").permitAll()
+                        .requestMatchers("/abrigos", "/abrigos/**").fullyAuthenticated()
                         .anyRequest().fullyAuthenticated()
                 )
                 .csrf(csrf -> csrf.ignoringRequestMatchers("/h2-console/**"))
                 .headers(headers -> headers.frameOptions(frame -> frame.disable()))
                 .oauth2Login(oauth2 -> oauth2
                         .loginPage("/oauth2/authorization/google")
+                        .defaultSuccessUrl("/abrigos", true)
                 )
                 .logout(logout -> logout
                         .logoutSuccessUrl("/abrigos")
